@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   frontend:
-    container_name: reactjs-basic
+    container_name: flask-helloworld
     build:
       context: .
       dockerfile: ./Dockerfile
