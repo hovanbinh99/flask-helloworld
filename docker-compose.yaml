@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  frontend:
+    container_name: reactjs-basic
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    ports:
+      - 8080:3000
+

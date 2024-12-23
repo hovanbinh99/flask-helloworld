@@ -2,8 +2,10 @@ name: flask-helloworld1
 on:
   push:
     branches: [ main ]
+    # 
 jobs:
   docker:
+    # 環境を定義
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -18,7 +20,8 @@ jobs:
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v1
         id: buildx
-
+      
+      # 最適化
       # - name: Cache Docker Image Layers
       #   uses: actions/cache@v2
       #   with:
@@ -26,7 +29,8 @@ jobs:
       #     key: ${{ runner.os }}-buildx-${{ github.sha }}
       #     restore-keys: |
       #       ${{ runner.os }}-buildx-
-
+      
+      # CLI パフォーマンスを向上させる
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         id: docker_build
@@ -39,5 +43,6 @@ jobs:
           # cache-from: type=local,src=/tmp/.buildx-cache
           # cache-to: type=local,dest=/tmp/.buildx-cache
 
+      #kiem tra
       - name: Verify
         run: echo ${{ steps.docker_build.outputs.digest }}
