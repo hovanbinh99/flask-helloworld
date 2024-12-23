@@ -16,4 +16,4 @@ EXPOSE 8080
 
  CMD ["sh", "-c", "gunicorn --bind :$PORT --workers 1 --threads 4 --timeout 0 main:app"]
 
-CMD python manage.py runserver 0.0.0.0:$PORT
+CMD python main.py runserver 0.0.0.0:$PORT
