@@ -1,19 +1,12 @@
-FROM python:3.7-slim
-
-WORKDIR app
-
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-ENV PORT 3000
-
-COPY ./src ./
-COPY requirements.txt ./
-
+FROM python
+# copy the requirements file into the image
+COPY ./requirements.txt /app/requirements.txt
+# switch working directory
+WORKDIR /app
+# install the dependencies and packages in the requirements file
 RUN pip install -r requirements.txt
-
-
-EXPOSE 3000
-
- CMD ["sh", "-c", "gunicorn --bind :$PORT --workers 1 --threads 4 --timeout 0 main:app"]
-
-CMD python main.py runserver 0.0.0.0:$PORT
+# copy every content from the local file to the image
+COPY . /app
+# configure the container to run in an executed manner
+ENTRYPOINT [ "python" ]
+CMD ["main.py" ]
