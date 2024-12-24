@@ -61,6 +61,6 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
 
-            docker run -d -p 2334:8080 --name flask-helloworld-container ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
+            sudo docker run -d -p 2334:8080 --name flask-helloworld-container ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
