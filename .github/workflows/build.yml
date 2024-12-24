@@ -22,13 +22,13 @@ jobs:
         id: buildx
       
       # 最適化
-      - name: Cache Docker Image Layers
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
+      # - name: Cache Docker Image Layers
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: /tmp/.buildx-cache
+      #     key: ${{ runner.os }}-buildx-${{ github.sha }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-buildx-
       
       # CLI パフォーマンスを向上させる
       - name: Build and Push Docker Image
@@ -63,4 +63,4 @@ jobs:
           script: |
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
 
-            sudo docker run -d -p 3000:3000 --name flask-helloworld-container ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
+            sudo docker run -d -p 5132:8080 --name flask-helloworld-container ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
