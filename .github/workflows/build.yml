@@ -47,20 +47,44 @@ jobs:
       - name: Verify
         run: echo ${{ steps.docker_build.outputs.digest }}
         
- # Job 2: Deploy
+#  # Job 2: Deploy
+#   deploy:
+#     needs: docker
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Deploy to server
+#        # action　"appleboy/ssh-action"　を使用して、SSH 経由でイメージをサーバーにデプロイする
+#         uses: appleboy/ssh-action@v0.1.3
+#         with:
+#           host: ${{ secrets.SERVER_HOST }}
+#           username: ${{ secrets.SERVER_USER }}
+#           key: ${{ secrets.SSH_PRIVATE_KEY }}
+#           script: |
+#             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
+
+#             sudo docker run -d -p 5132:8080 --name flask-helloworld-container ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
+
   deploy:
-    needs: docker
-    runs-on: ubuntu-latest
+  needs: docker
+  runs-on: ubuntu-latest
 
-    steps:
-      - name: Deploy to server
-       # action　"appleboy/ssh-action"　を使用して、SSH 経由でイメージをサーバーにデプロイする
-        uses: appleboy/ssh-action@v0.1.3
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
+  steps:
+    - name: Deploy to server
+      # Sử dụng "appleboy/ssh-action" để triển khai qua SSH
+      uses: appleboy/ssh-action@v0.1.3
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
 
-            sudo docker run -d -p 5132:8080 --name flask-helloworld-container ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
+          echo "Checking connection to server..."
+          hostname
+
+          echo "Pulling Docker image..."
+          sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
+
+          echo "Starting new container..."
+          sudo docker run -d -p 5132:8080 --name flask-helloworld-container ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
