@@ -63,4 +63,4 @@ jobs:
           script: |
              sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
 
-             sudo docker run -d -p 80/3000 --name flask-helloworld-container ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
+             sudo docker run -d -p 5543/8080 --name flask-helloworld-container ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
