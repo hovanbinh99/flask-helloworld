@@ -56,8 +56,10 @@ jobs:
       - name: Setup Tailscale
         uses: tailscale/github-action@v3
         with:
-          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}\
+
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:demo
 
       - name: Deploy to server
        # action　"appleboy/ssh-action"　を使用して、SSH 経由でイメージをサーバーにデプロイする
