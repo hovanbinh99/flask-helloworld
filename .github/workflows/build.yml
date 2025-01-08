@@ -62,6 +62,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           # port: 22
           script: |
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
+             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
 
-            sudo docker run -d -p 5343:8080 --name flask-helloworld-container ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
+             docker run -d -p 5343:8080 --name flask-helloworld-container ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld:${{ github.sha }}
