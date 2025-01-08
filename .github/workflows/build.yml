@@ -71,5 +71,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld
-
-            docker run -d -p 5543/8080 --name  ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld
+            docker run -p 5543/8080 --name  ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld
