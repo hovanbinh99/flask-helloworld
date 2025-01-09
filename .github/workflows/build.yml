@@ -70,7 +70,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld
             docker stop ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld-container
-            docker rm ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld-container 
+            docker rm ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld-container
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld
             docker run -d -p 5554:8080 ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld
