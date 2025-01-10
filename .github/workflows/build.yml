@@ -73,3 +73,4 @@ jobs:
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld
             docker rm -v -f $(docker ps -qa)
             docker run -d -p 5554:8080 ${{ secrets.DOCKERHUB_USERNAME }}/flask-helloworld
+            
